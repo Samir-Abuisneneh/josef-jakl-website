@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josef Jakl — písničky o něčem</title>
+<meta name="description" content="Oficiální stránky písničkáře Josefa Jakla — patnáct klipů z DVD O lidech, životní příběh strojaře, vynálezce kapodastru a kapelníka skupiny Kasteláni, koncerty a kontakt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;0,900;1,500;1,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="wordmark-small" href="#top">Josef Jakl</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Otevřít menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary-nav" id="primaryNav">
+      <a href="#videoklipy">Videoklipy</a>
+      <a href="#zivotopis">Životopis</a>
+      <a href="#koncerty">Koncerty</a>
+      <a href="#galerie">Fotky</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-photo" aria-hidden="true">
+      <img src="assets/photos/josef-hero.jpg" alt="">
+    </div>
+    <div class="hero-content">
+      <p class="eyebrow">Písničky o něčem</p>
+      <h1 class="wordmark">Josef Jakl</h1>
+      <p class="hero-tagline">Písničky, které mají jméno a tvář — ne o ničem, ale o něčem. Klipy, novinky, fotky i další odkazy najdete přímo tady.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#videoklipy">Přehrát klipy</a>
+        <a class="btn btn-ghost" href="#koncerty">Kde hraje</a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- VIDEO DVD MENU -->
+  <section class="section videos" id="videoklipy">
+    <div class="section-inner">
+      <p class="eyebrow">Kapitola 1</p>
+      <div class="videos-intro">
+        <div>
+          <h2 class="section-title">Videoklipy</h2>
+          <p class="section-lede">Patnáct písní z DVD <em>O lidech</em> — každá o někom nebo o něčem skutečném. Vyberte skladbu vlevo, přehraje se napravo, přesně jako na starém DVD menu.</p>
+        </div>
+        <figure class="dvd-cover-card">
+          <img src="assets/photos/dvd-cover-o-lidech.jpg" alt="Obal DVD Josef Jakl — O lidech, Písničky o něčem">
+          <figcaption>DVD · O lidech (2020)</figcaption>
+        </figure>
+      </div>
+
+      <div class="dvd-menu">
+        <ol class="track-list" id="trackList" aria-label="Seznam skladeb"></ol>
+
+        <div class="screen-wrap">
+          <div class="screen" id="screen">
+            <div class="screen-placeholder" id="screenPlaceholder">
+              <p class="screen-glyph">▶</p>
+              <p>Vyberte skladbu vlevo</p>
+            </div>
+            <div class="video-embed" id="videoEmbed" hidden></div>
+            <div class="no-video" id="noVideo" hidden>
+              <p>Video zatím není nahráno.</p>
+              <p class="no-video-sub">Doplňte YouTube ID v <code>script.js</code>.</p>
+            </div>
+          </div>
+          <p class="screen-caption" id="screenCaption">— připraveno k přehrání —</p>
+        </div>
+      </div>
+
+      <div class="tv-clips">
+        <p class="tv-clips-label">Josefa vidíte i v televizi:</p>
+        <ul class="tv-clips-list" id="tvClips"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIOGRAPHY -->
+  <section class="section bio" id="zivotopis">
+    <div class="section-inner bio-grid">
+      <div class="bio-portrait">
+        <img src="assets/photos/josef-zahrada.jpg" alt="Josef Jakl s kytarou ve své zahradě">
+        <span class="bio-portrait-caption">Josef Jakl ve své zahradě v Heřmani.</span>
+      </div>
+      <div class="bio-text">
+        <p class="eyebrow">Kapitola 2</p>
+        <h2 class="section-title">Životopis</h2>
+        <p class="liner-note">
+          Josef Jakl se narodil 13. dubna 1942 v Chmelné pod Kletí. Vyučil se
+          strojařem, vystudoval Střední průmyslovou školu strojní a
+          elektrotechnickou v Českých Budějovicích a celý profesní život pak
+          spojil se železničními opravnami v Českých Velenicích — nejdřív jako
+          technolog a konstruktér, později jako vedoucí výrobně-technického
+          úseku. Jako mladík patřil k nejlepším malorážkovým střelcům
+          republiky a byl členem československé střelecké reprezentace;
+          dodnes drží československý rekord v této disciplíně.
+        </p>
+        <p class="liner-note">
+          Po vojně založil se spolupracovníky z velenické fabriky kapelu
+          Diskant, o pár let později, v roce 1970, kapelu Kasteláni — jejím
+          kapelníkem a kytaristou zůstal až do roku 2000. Krátce před
+          důchodem se pustil do svého nejvýznamnějšího vynálezu: originálního
+          kapodastru, jehož licenci na počátku 90. let odkoupila po setkání na
+          frankfurtském veletrhu americká firma Jima Dunlopa. S rodinou se
+          pak přestěhoval do Heřmaně u Českých Budějovic, kde žije dodnes —
+          a dál píše a hraje písničky, které jsou vždycky o něčem konkrétním:
+          o lidech, místech a chvílích z vlastního života.
+        </p>
+        <dl class="fact-card" aria-label="Životopisná fakta">
+          <div><dt>Narozen</dt><dd>13. 4. 1942, Chmelná pod Kletí</dd></div>
+          <div><dt>Profese</dt><dd>strojírenský technik, konstruktér</dd></div>
+          <div><dt>Kapela</dt><dd>kapelník a kytarista skupiny Kasteláni (1970–2000)</dd></div>
+          <div>
+            <dt>Vynález</dt>
+            <dd>
+              <svg class="fact-icon" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="90" y="170" width="220" height="26" rx="6"/>
+                <line x1="110" y1="170" x2="110" y2="196"/>
+                <line x1="140" y1="170" x2="140" y2="196"/>
+                <line x1="170" y1="170" x2="170" y2="196"/>
+                <line x1="200" y1="170" x2="200" y2="196"/>
+                <line x1="230" y1="170" x2="230" y2="196"/>
+                <line x1="260" y1="170" x2="260" y2="196"/>
+                <line x1="290" y1="170" x2="290" y2="196"/>
+                <rect x="80" y="150" width="240" height="24" rx="10"/>
+                <path d="M320 156 C 350 150, 360 130, 345 108"/>
+                <circle cx="345" cy="108" r="9"/>
+                <circle cx="320" cy="162" r="4"/>
+                <path d="M90 174 q6 8 0 16 q-6 8 0 16"/>
+              </svg>
+              originální kapodastr — licence prodána firmě Dunlop
+            </dd>
+          </div>
+          <div><dt>Rekord</dt><dd>držitel československého rekordu v malorážce</dd></div>
+          <div><dt>Dnes</dt><dd>žije a tvoří v Heřmani u Českých Budějovic</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCERTS -->
+  <section class="section concerts" id="koncerty">
+    <div class="section-inner">
+      <p class="eyebrow">Kapitola 3</p>
+      <h2 class="section-title">Koncerty</h2>
+      <div class="concert-band">
+        <p class="concert-text">
+          Josef hraje pravidelně — v sálech, na akcích, v klubech i pro
+          seniory na besedách, například v českobudějovickém baru Londýn.
+          Místo a termín konkrétního koncertu si prosím ověřte telefonicky
+          nebo e-mailem.
+        </p>
+        <a class="btn btn-ghost concert-fb-link" href="#kontakt">
+          Napsat nebo zavolat →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section gallery" id="galerie">
+    <div class="section-inner">
+      <p class="eyebrow">Kapitola 4</p>
+      <h2 class="section-title">Fotky</h2>
+      <div class="photo-grid" id="photoGrid" aria-label="Galerie fotografií">
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/josef-zahrada.jpg" alt="Josef Jakl s kytarou ve své zahradě">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/josef-zed.jpg" alt="Josef Jakl s kytarou u zdi obrostlé břečťanem">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/josef-slunecnice.jpg" alt="Josef Jakl s kytarou mezi třapatkami">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/josef-houpacka.jpg" alt="Josef Jakl s kytarou na zahradní houpačce">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/koncert-jeviste.jpg" alt="Josef Jakl na jevišti s kapelou Kasteláni">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/koncert-detail.jpg" alt="Josef Jakl při koncertním vystoupení">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/koncert-kavarna.jpg" alt="Josef Jakl při vystoupení v kavárně">
+        </div>
+        <div class="photo-slot photo-real">
+          <img src="assets/photos/kastelani-plakat.jpg" alt="Plakát na hudební večer kapely Kasteláni">
+        </div>
+      </div>
+      <p class="gallery-hint">Fotky z koncertů, zkoušek i ze zahrady v Heřmani.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="kontakt">
+    <div class="section-inner">
+      <p class="eyebrow">Kapitola 5</p>
+      <h2 class="section-title">Kontakt</h2>
+      <p class="section-lede">Na koncert, spolupráci nebo jen pozdravit — ozvěte se.</p>
+
+      <div class="contact-grid">
+        <a class="contact-card" href="tel:+420000000000" id="phoneLink">
+          <span class="contact-label">Telefon</span>
+          <span class="contact-value" id="phoneValue">+420 000 000 000</span>
+        </a>
+        <a class="contact-card" href="mailto:josef@example.com" id="emailLink">
+          <span class="contact-label">E-mail</span>
+          <span class="contact-value" id="emailValue">josef@example.com</span>
+        </a>
+        <a class="contact-card" href="#" id="facebookLink" target="_blank" rel="noopener">
+          <span class="contact-label">Facebook</span>
+          <span class="contact-value">Sledovat →</span>
+        </a>
+        <a class="contact-card" href="#" id="youtubeLink" target="_blank" rel="noopener">
+          <span class="contact-label">YouTube</span>
+          <span class="contact-value">Videa →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Josef Jakl. Se srdcem postavila rodina.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
