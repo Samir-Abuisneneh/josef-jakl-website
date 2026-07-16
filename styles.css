@@ -439,42 +439,47 @@ a:focus-visible, button:focus-visible {
   text-align: center;
 }
 
-.tv-clips {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(var(--ink-rgb), 0.12);
-}
-.tv-clips-label {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin: 0 0 0.7rem;
-}
+.tv-section { background: var(--panel); border-top: 1px solid rgba(var(--ink-rgb),0.08); border-bottom: 1px solid rgba(var(--ink-rgb),0.08); }
+.tv-section-title { margin-bottom: 0.6rem; }
+
 .tv-clips-list {
   list-style: none;
-  margin: 0;
+  margin: 2rem 0 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.8rem 1.5rem;
 }
-.tv-clips-list a {
-  text-decoration: none;
+.tv-clip-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--cream);
+  border: 1px solid rgba(var(--ink-rgb), 0.15);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
   color: var(--ink);
-  border-bottom: 1px solid rgba(var(--ink-rgb), 0.3);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
-.tv-clips-list a:hover,
-.tv-clips-list a:focus-visible {
-  color: var(--rose-deep);
-  border-color: var(--rose-deep);
+.tv-clip-btn:hover,
+.tv-clip-btn:focus-visible {
+  border-color: var(--gold);
 }
+.tv-clip-btn.active {
+  background: var(--ivy);
+  border-color: var(--ivy);
+  color: var(--cream);
+}
+.tv-clip-btn.active .tv-clip-source { color: rgba(var(--cream-rgb), 0.75); }
 .tv-clip-source {
+  display: block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--ink-dim);
+  margin-top: 0.3rem;
 }
 
 /* ---------- biography ---------- */
@@ -589,12 +594,101 @@ a:focus-visible, button:focus-visible {
 .photo-slot.photo-real {
   border: none;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .photo-slot.photo-real img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 25%;
+  display: block;
+}
+.photo-slot.photo-real:hover,
+.photo-slot.photo-real:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(var(--ink-rgb), 0.25);
+}
+
+/* ---------- lightbox ---------- */
+.lightbox:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(var(--ink-rgb), 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+.lightbox-figure {
+  margin: 0;
+  max-width: min(90vw, 1100px);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.lightbox-img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.lightbox-counter {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: rgba(var(--cream-rgb), 0.8);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(var(--cream-rgb), 0.4);
+  color: var(--cream);
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.lightbox-close:hover,
+.lightbox-close:focus-visible { border-color: var(--gold-bright); color: var(--gold-bright); }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid rgba(var(--cream-rgb), 0.4);
+  color: var(--cream);
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.lightbox-nav:hover,
+.lightbox-nav:focus-visible { border-color: var(--gold-bright); color: var(--gold-bright); }
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+@media (max-width: 720px) {
+  .lightbox { padding: 1rem; }
+  .lightbox-nav { width: 2.3rem; height: 2.3rem; font-size: 1.1rem; }
+  .lightbox-prev { left: 0.4rem; }
+  .lightbox-next { right: 0.4rem; }
+  .lightbox-close { top: 0.8rem; right: 0.8rem; }
 }
 
 .gallery-hint {

@@ -84,11 +84,15 @@
           <p class="screen-caption" id="screenCaption">— připraveno k přehrání —</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tv-clips">
-        <p class="tv-clips-label">Josefa vidíte i v televizi:</p>
-        <ul class="tv-clips-list" id="tvClips"></ul>
-      </div>
+  <!-- TV & ALBUM CLIPS -->
+  <section class="section tv-section" id="televize">
+    <div class="section-inner">
+      <h2 class="section-title tv-section-title">Josefa vidíte i v televizi</h2>
+      <p class="section-lede">Klikněte a přehraje se rovnou tady, ve stejné obrazovce jako klipy z DVD.</p>
+      <ul class="tv-clips-list" id="tvClips"></ul>
     </div>
   </section>
 
@@ -162,10 +166,10 @@
       <h2 class="section-title">Koncerty</h2>
       <div class="concert-band">
         <p class="concert-text">
-          Josef hraje pravidelně — v sálech, na akcích, v klubech i pro
-          seniory na besedách, například v českobudějovickém baru Londýn.
-          Místo a termín konkrétního koncertu si prosím ověřte telefonicky
-          nebo e-mailem.
+          Josef hraje pravidelně — v sálech, v klubech i na besedách pro
+          seniory, například v českobudějovickém baru London. Místo a
+          termín konkrétního koncertu si prosím ověřte telefonicky nebo
+          e-mailem.
         </p>
         <a class="btn btn-ghost concert-fb-link" href="#kontakt">
           Napsat nebo zavolat →
@@ -180,34 +184,45 @@
       <p class="eyebrow">Kapitola 4</p>
       <h2 class="section-title">Fotky</h2>
       <div class="photo-grid" id="photoGrid" aria-label="Galerie fotografií">
-        <div class="photo-slot photo-real">
+        <button type="button" class="photo-slot photo-real" data-index="0">
           <img src="assets/photos/josef-zahrada.jpg" alt="Josef Jakl s kytarou ve své zahradě">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="1">
           <img src="assets/photos/josef-zed.jpg" alt="Josef Jakl s kytarou u zdi obrostlé břečťanem">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="2">
           <img src="assets/photos/josef-slunecnice.jpg" alt="Josef Jakl s kytarou mezi třapatkami">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="3">
           <img src="assets/photos/josef-houpacka.jpg" alt="Josef Jakl s kytarou na zahradní houpačce">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="4">
           <img src="assets/photos/koncert-jeviste.jpg" alt="Josef Jakl na jevišti s kapelou Kasteláni">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="5">
           <img src="assets/photos/koncert-detail.jpg" alt="Josef Jakl při koncertním vystoupení">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="6">
           <img src="assets/photos/koncert-kavarna.jpg" alt="Josef Jakl při vystoupení v kavárně">
-        </div>
-        <div class="photo-slot photo-real">
+        </button>
+        <button type="button" class="photo-slot photo-real" data-index="7">
           <img src="assets/photos/kastelani-plakat.jpg" alt="Plakát na hudební večer kapely Kasteláni">
-        </div>
+        </button>
       </div>
       <p class="gallery-hint">Fotky z koncertů, zkoušek i ze zahrady v Heřmani.</p>
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Zavřít">✕</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Předchozí fotka">‹</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <figcaption class="lightbox-counter" id="lightboxCounter"></figcaption>
+    </figure>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Další fotka">›</button>
+  </div>
 
   <!-- CONTACT -->
   <section class="section contact" id="kontakt">

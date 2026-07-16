@@ -34,10 +34,15 @@ const CONTACT = {
 
 // Extra performance clips filmed by TV Šlágr, not part of the DVD.
 // Credited to TV Šlágr regardless of which channel currently hosts the upload.
+// Click plays them right here on the page, in the same screen as the tracks.
 const TV_CLIPS = [
-  { title: "O lidech", source: "TV Šlágr", url: "https://youtu.be/KB7l2i5gRIE" },
-  { title: "Josef Jakl a Iva Kubíčková — Závod", source: "TV Šlágr", url: "https://youtu.be/nZ01qt47G_Q" },
-  { title: "Letní vítr", source: "TV Šlágr", url: "https://youtu.be/e4qRZkLAkCw" },
+  { title: "O lidech", source: "TV Šlágr", youtubeId: "KB7l2i5gRIE" },
+  { title: "Josef Jakl a Iva Kubíčková — Závod", source: "TV Šlágr", youtubeId: "nZ01qt47G_Q" },
+  { title: "Letní vítr", source: "TV Šlágr", youtubeId: "e4qRZkLAkCw" },
+  { title: "Přátelství", source: "TV Šlágr", youtubeId: "je7Cd4JlebY" },
+  { title: "Cesta za štěstím", source: "TV Šlágr", youtubeId: "8EpHMpHLyXc" },
+  { title: "Internet", source: "TV Šlágr", youtubeId: "fYpFjRzQHJA" },
+  { title: "Básník", source: "Josef Jakl a Luděk Černý", playlistId: "OLAK5uy_mnWUDqeVKzP-fOOKRl9PRuBt3bcw30VKE" },
 ];
 
 // ---------------------------------------------------------------
@@ -61,61 +66,81 @@ function buildTrackList() {
     title.textContent = track.title;
 
     button.append(num, title);
-    button.addEventListener("click", () => playTrack(index));
+    button.addEventListener("click", () => playTrack(index, button));
     li.appendChild(button);
     list.appendChild(li);
   });
 }
 
-function playTrack(index) {
-  const track = TRACKS[index];
+// Renders a track/clip/playlist into the shared screen. Any one item
+// (DVD track, TV clip, or album) can be the active, playing thing.
+function renderIntoScreen({ videoFile, youtubeId, playlistId, title }) {
   const placeholder = document.getElementById("screenPlaceholder");
   const embed = document.getElementById("videoEmbed");
   const noVideo = document.getElementById("noVideo");
-  const caption = document.getElementById("screenCaption");
-
-  document.querySelectorAll(".track-row").forEach((row) => {
-    const isActive = Number(row.dataset.index) === index;
-    row.classList.toggle("active", isActive);
-    row.setAttribute("aria-pressed", String(isActive));
-  });
 
   placeholder.hidden = true;
 
-  if (track.videoFile) {
+  if (videoFile) {
     embed.hidden = false;
     noVideo.hidden = true;
     embed.innerHTML = "";
     const video = document.createElement("video");
-    video.src = track.videoFile;
+    video.src = videoFile;
     video.controls = true;
     video.autoplay = true;
     video.playsInline = true;
-    video.setAttribute("title", track.title);
+    video.setAttribute("title", title);
     embed.appendChild(video);
-  } else if (track.youtubeId) {
+  } else if (youtubeId) {
     embed.hidden = false;
     noVideo.hidden = true;
-    embed.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(track.youtubeId)}?autoplay=1" title="${track.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    embed.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}?autoplay=1" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  } else if (playlistId) {
+    embed.hidden = false;
+    noVideo.hidden = true;
+    embed.innerHTML = `<iframe src="https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(playlistId)}&autoplay=1" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   } else {
     embed.hidden = true;
     embed.innerHTML = "";
     noVideo.hidden = false;
   }
+}
 
-  caption.textContent = `— ${String(index + 1).padStart(2, "0")} · ${track.title} —`;
+function setActiveButton(activeEl) {
+  document.querySelectorAll(".track-row, .tv-clip-btn").forEach((el) => {
+    const isActive = el === activeEl;
+    el.classList.toggle("active", isActive);
+    el.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+function playTrack(index, buttonEl) {
+  const track = TRACKS[index];
+  setActiveButton(buttonEl);
+  renderIntoScreen(track);
+  document.getElementById("screenCaption").textContent =
+    `— ${String(index + 1).padStart(2, "0")} · ${track.title} —`;
+}
+
+function playClip(clip, buttonEl) {
+  setActiveButton(buttonEl);
+  renderIntoScreen(clip);
+  document.getElementById("screenCaption").textContent = `— ${clip.title} · ${clip.source} —`;
+  document.getElementById("screen").scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function buildTvClips() {
   const list = document.getElementById("tvClips");
   TV_CLIPS.forEach((clip) => {
     const li = document.createElement("li");
-    const link = document.createElement("a");
-    link.href = clip.url;
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.innerHTML = `${clip.title} <span class="tv-clip-source">— ${clip.source}</span>`;
-    li.appendChild(link);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tv-clip-btn";
+    button.setAttribute("aria-pressed", "false");
+    button.innerHTML = `${clip.title} <span class="tv-clip-source">— ${clip.source}</span>`;
+    button.addEventListener("click", () => playClip(clip, button));
+    li.appendChild(button);
     list.appendChild(li);
   });
 }
@@ -152,6 +177,63 @@ function wireNav() {
   });
 }
 
+function wireLightbox() {
+  const photoButtons = Array.from(document.querySelectorAll(".photo-slot.photo-real"));
+  if (photoButtons.length === 0) return;
+
+  const photos = photoButtons.map((btn) => {
+    const img = btn.querySelector("img");
+    return { src: img.src, alt: img.alt };
+  });
+
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const counter = document.getElementById("lightboxCounter");
+  let currentIndex = 0;
+  let lastFocused = null;
+
+  function show(index) {
+    currentIndex = (index + photos.length) % photos.length;
+    const photo = photos[currentIndex];
+    lightboxImg.src = photo.src;
+    lightboxImg.alt = photo.alt;
+    counter.textContent = `${currentIndex + 1} / ${photos.length}`;
+  }
+
+  function open(index) {
+    lastFocused = document.activeElement;
+    show(index);
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("lightboxClose").focus();
+  }
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  photoButtons.forEach((btn, index) => {
+    btn.addEventListener("click", () => open(index));
+  });
+
+  document.getElementById("lightboxClose").addEventListener("click", close);
+  document.getElementById("lightboxNext").addEventListener("click", () => show(currentIndex + 1));
+  document.getElementById("lightboxPrev").addEventListener("click", () => show(currentIndex - 1));
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) close();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (lightbox.hidden) return;
+    if (event.key === "Escape") close();
+    if (event.key === "ArrowRight") show(currentIndex + 1);
+    if (event.key === "ArrowLeft") show(currentIndex - 1);
+  });
+}
+
 function wireReveal() {
   const targets = document.querySelectorAll(".section");
   targets.forEach((el) => el.classList.add("reveal"));
@@ -182,4 +264,5 @@ buildTrackList();
 buildTvClips();
 wireContact();
 wireNav();
+wireLightbox();
 wireReveal();
