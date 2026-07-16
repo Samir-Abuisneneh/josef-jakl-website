@@ -28,7 +28,7 @@ const TRACKS = [
 const CONTACT = {
   phone: "+420 723 667 646",
   email: "jaklkovo@tiscali.cz",
-  facebookUrl: "",   // e.g. "https://facebook.com/josefjakl"
+  facebookUrl: "https://www.facebook.com/share/18GeaeBQPc/",
   youtubeUrl: "https://youtu.be/KB7l2i5gRIE", // no dedicated channel yet — links to a TV rerun instead
 };
 
